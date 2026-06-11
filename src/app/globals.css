@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+  }
+
+  body {
+    @apply bg-charcoal text-white antialiased;
+    font-family: var(--font-inter), system-ui, sans-serif;
+  }
+
+  ::selection {
+    @apply bg-gold/30 text-white;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  .section-kicker {
+    @apply text-xs font-semibold tracking-[0.2em] uppercase text-gold mb-4;
+  }
+
+  .section-title {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-6;
+  }
+
+  .section-subtitle {
+    @apply text-muted text-lg md:text-xl leading-relaxed max-w-2xl;
+  }
+
+  .panel {
+    @apply bg-panel border border-panel-border rounded-lg;
+  }
+
+  .panel-hover {
+    @apply hover:bg-panel-hover hover:border-gold/30 transition-all duration-300;
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 bg-gold text-charcoal font-semibold text-sm tracking-wider uppercase rounded
+           transition-all duration-300 hover:bg-gold-light hover:shadow-[0_0_40px_rgba(212,175,55,0.2)];
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent text-white font-semibold text-sm tracking-wider uppercase rounded
+           border border-white/20 transition-all duration-300 hover:border-gold hover:text-gold;
+  }
+
+  .btn-outline-gold {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent text-gold font-semibold text-sm tracking-wider uppercase rounded
+           border border-gold transition-all duration-300 hover:bg-gold hover:text-charcoal;
+  }
+
+  .text-gradient-gold {
+    @apply bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent;
+  }
+
+  .fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .fade-in-up-delay-1 {
+    animation: fadeInUp 0.8s ease-out 0.15s forwards;
+    opacity: 0;
+  }
+
+  .fade-in-up-delay-2 {
+    animation: fadeInUp 0.8s ease-out 0.3s forwards;
+    opacity: 0;
+  }
+
+  .fade-in-up-delay-3 {
+    animation: fadeInUp 0.8s ease-out 0.45s forwards;
+    opacity: 0;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -37,9 +37,6 @@ export default function Hero() {
         }}
       />
 
-      {/* Subtle gold ambient glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_30%_at_50%_50%,rgba(212,175,55,0.06),transparent_70%)]" />
-
       {/* Bottom fade to blend with next section */}
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-charcoal to-transparent" />
 

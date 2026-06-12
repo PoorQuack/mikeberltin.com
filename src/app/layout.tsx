@@ -10,8 +10,24 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Mikeberltin',
-  description: 'Construction Logistics, Workforce Supply & Security Services',
+  title: 'Mikeberltin — Construction Logistics, Workforce & Security',
+  description:
+    'Mikeberltin delivers skilled labour, construction logistics, and professional security services across high-demand projects in the UK. Reliable workforce supply, site logistics, and SIA-licensed security personnel.',
+  keywords: [
+    'construction logistics',
+    'workforce supply',
+    'security services',
+    'construction labour',
+    'site security',
+    'UK construction',
+    'Mikeberltin',
+  ],
+  openGraph: {
+    title: 'Mikeberltin — Construction Logistics, Workforce & Security',
+    description:
+      'Skilled labour, construction logistics, and trusted security services across high-demand projects.',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

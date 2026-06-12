@@ -1,26 +1,10 @@
 import { ArrowRight } from 'lucide-react';
+import FadeInSection from './FadeInSection';
 
 export default function CTA() {
   return (
     <section className="relative py-28 md:py-36 bg-charcoal-light border-y border-panel-border overflow-hidden">
-      {/* Subtle background pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.015]"
-        style={{
-          backgroundImage: `repeating-linear-gradient(
-            45deg,
-            transparent,
-            transparent 20px,
-            rgba(212, 175, 55, 0.3) 20px,
-            rgba(212, 175, 55, 0.3) 21px
-          )`,
-        }}
-      />
-
-      {/* Gold ambient glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_50%_50%,rgba(212,175,55,0.04),transparent_70%)]" />
-
-      <div className="relative max-w-4xl mx-auto px-8 text-center">
+      <FadeInSection className="relative max-w-4xl mx-auto px-8 text-center">
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] tracking-tight mb-6">
           Ready to work with a
           <br />
@@ -46,7 +30,7 @@ export default function CTA() {
             Available 24/7 for urgent deployments
           </p>
         </div>
-      </div>
+      </FadeInSection>
     </section>
   );
 }

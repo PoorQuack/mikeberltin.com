@@ -9,8 +9,8 @@
             90deg,
             transparent,
             transparent 30px,
-            rgba(212, 175, 55, 0.3) 30px,
-            rgba(212, 175, 55, 0.3) 31px
+            rgba(255, 255, 255, 0.15) 30px,
+            rgba(255, 255, 255, 0.15) 31px
           )`,
         }}
       />

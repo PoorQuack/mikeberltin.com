@@ -50,7 +50,7 @@ export default function Nav() {
         </ul>
 
         <button
-          className="md:hidden text-white hover:text-gold transition-colors duration-300"
+          className="md:hidden text-white hover:text-gold hover:scale-110 transition-all duration-300"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >

@@ -1,5 +1,6 @@
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
+import FadeInSection from '@/components/FadeInSection';
 import { HardHat, Users, Shield, Check } from 'lucide-react';
 
 const services = [
@@ -66,7 +67,7 @@ export default function ServicesPage() {
               backgroundImage: `url('https://images.unsplash.com/photo-1586528116321-2e0b5ae3b6a7?w=1920&q=80')`,
             }}
           />
-          <div className="relative max-w-7xl mx-auto px-8 text-center">
+          <FadeInSection className="relative max-w-7xl mx-auto px-8 text-center">
             <p className="section-kicker">Our Services</p>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-black leading-[1.1] tracking-tight mb-8">
               What we <span className="text-gold">deliver</span>
@@ -75,7 +76,7 @@ export default function ServicesPage() {
               Comprehensive solutions for construction logistics, workforce
               supply, and site security — tailored to your project requirements.
             </p>
-          </div>
+          </FadeInSection>
         </section>
 
         {/* Services List */}
@@ -87,7 +88,7 @@ export default function ServicesPage() {
                 id={service.id}
                 className="grid lg:grid-cols-2 gap-16 items-center"
               >
-                <div className={index % 2 === 1 ? 'lg:order-2' : ''}>
+                <FadeInSection delay={100} className={index % 2 === 1 ? 'lg:order-2' : ''}>
                   <div className="w-16 h-16 bg-gold/10 rounded-xl flex items-center justify-center mb-6">
                     <service.icon size={32} className="text-gold" />
                   </div>
@@ -101,31 +102,28 @@ export default function ServicesPage() {
                     {service.features.map((feature) => (
                       <li
                         key={feature}
-                        className="flex items-center gap-3 text-sm"
+                        className="flex items-center gap-3 text-sm transition-all duration-300 hover:translate-x-1"
                       >
                         <Check size={18} className="text-gold flex-shrink-0" />
                         <span className="text-muted">{feature}</span>
                       </li>
                     ))}
                   </ul>
-                </div>
-                <div
-                  className={`${
-                    index % 2 === 1 ? 'lg:order-1' : ''
-                  }`}
-                >
-                  <div className="relative aspect-[4/3] bg-surface-card border border-panel-border rounded-2xl overflow-hidden shadow-lg">
+                </FadeInSection>
+                <FadeInSection delay={200} className={index % 2 === 1 ? 'lg:order-1' : ''}>
+                  <div className="relative aspect-[4/3] bg-surface-card border border-panel-border rounded-2xl overflow-hidden shadow-lg
+                                  transition-all duration-500 hover:border-gold/20 hover:shadow-[0_0_60px_rgba(212,175,55,0.1)]">
                     <div
                       className="absolute inset-0 bg-cover bg-center transition-transform duration-700 hover:scale-105"
                       style={{ backgroundImage: `url('${service.image}')` }}
                     />
                     <div className="absolute inset-0 bg-black/30" />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-gold/10 to-transparent" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <service.icon size={64} className="text-gold/40" />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent" />
+                    <div className="absolute inset-0 flex items-center justify-center transition-all duration-500 hover:bg-black/10">
+                      <service.icon size={64} className="text-gold/40 transition-all duration-500 hover:text-gold/60 hover:scale-110" />
                     </div>
                   </div>
-                </div>
+                </FadeInSection>
               </div>
             ))}
           </div>
@@ -134,15 +132,17 @@ export default function ServicesPage() {
         {/* CTA */}
         <section className="py-24 md:py-32 bg-surface-secondary border-t border-panel-border">
           <div className="max-w-4xl mx-auto px-8 text-center">
-            <h2 className="text-4xl md:text-5xl font-black leading-[1.1] tracking-tight mb-6">
-              Need a custom <span className="text-gold">solution</span>?
-            </h2>
-            <p className="text-muted text-lg mb-10 max-w-xl mx-auto">
-              We tailor our services to match your specific project requirements.
-            </p>
-            <a href="/#contact" className="btn-gold hover:scale-105 transition-all duration-300">
-              Get in Touch
-            </a>
+            <FadeInSection>
+              <h2 className="text-4xl md:text-5xl font-black leading-[1.1] tracking-tight mb-6">
+                Need a custom <span className="text-gold">solution</span>?
+              </h2>
+              <p className="text-muted text-lg mb-10 max-w-xl mx-auto">
+                We tailor our services to match your specific project requirements.
+              </p>
+              <a href="/#contact" className="btn-gold hover:scale-105 transition-all duration-300">
+                Get in Touch
+              </a>
+            </FadeInSection>
           </div>
         </section>
       </main>

@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const links = [
-  { href: '#home', label: 'Home' },
-  { href: '#services', label: 'Services' },
-  { href: '#about', label: 'About' },
-  { href: '#contact', label: 'Contact' },
+  { href: '/', label: 'Home' },
+  { href: '/services', label: 'Services' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
 ];
 
 export default function Nav() {
@@ -24,12 +24,12 @@ export default function Nav() {
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-charcoal/90 backdrop-blur-xl border-b border-panel-border py-5'
-          : 'bg-transparent py-7'
+          ? 'bg-white/95 backdrop-blur-xl border-b border-panel-border py-5 shadow-sm'
+          : 'bg-white/95 backdrop-blur-sm py-7'
       }`}
     >
       <div className="max-w-7xl mx-auto px-8 flex items-center justify-between">
-        <a href="#home" className="relative group">
+        <a href="/" className="relative group">
           <span className="text-2xl font-black tracking-[0.2em] uppercase text-gold">
             MIKEBERLTIN
           </span>
@@ -41,7 +41,7 @@ export default function Nav() {
             <li key={l.href}>
               <a
                 href={l.href}
-                className="text-sm font-medium tracking-[0.1em] uppercase text-muted-light hover:text-gold transition-all duration-300"
+                className="text-sm font-medium tracking-[0.1em] uppercase text-muted hover:text-gold transition-all duration-300"
               >
                 {l.label}
               </a>
@@ -50,7 +50,7 @@ export default function Nav() {
         </ul>
 
         <button
-          className="md:hidden text-white hover:text-gold hover:scale-110 transition-all duration-300"
+          className="md:hidden text-dark hover:text-gold hover:scale-110 transition-all duration-300"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
@@ -59,13 +59,13 @@ export default function Nav() {
       </div>
 
       {open && (
-        <div className="md:hidden fixed inset-0 top-0 bg-charcoal/98 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-12">
+        <div className="md:hidden fixed inset-0 top-0 bg-white/98 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-8 sm:gap-12">
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="text-2xl font-bold text-white hover:text-gold transition-all duration-300"
+              className="text-xl sm:text-2xl font-bold text-dark hover:text-gold transition-all duration-300"
             >
               {l.label}
             </a>

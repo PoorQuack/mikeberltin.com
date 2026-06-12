@@ -96,8 +96,8 @@ export default function Contact() {
                 <input
                   id="name"
                   type="text"
-                  className="w-full bg-charcoal-medium border border-panel-border rounded-xl px-5 py-4 text-sm text-white
-                             placeholder:text-muted-dim focus:outline-none focus:border-gold/40 transition-all duration-300"
+                  className="w-full bg-charcoal-medium border border-panel-border rounded-xl px-5 py-4 text-sm text-dark
+                             placeholder:text-muted-light focus:outline-none focus:border-gold/40 transition-all duration-300"
                   placeholder="John Smith"
                 />
               </div>
@@ -109,8 +109,8 @@ export default function Contact() {
                 <input
                   id="company"
                   type="text"
-                  className="w-full bg-charcoal-medium border border-panel-border rounded-xl px-5 py-4 text-sm text-white
-                             placeholder:text-muted-dim focus:outline-none focus:border-gold/40 transition-all duration-300"
+                  className="w-full bg-charcoal-medium border border-panel-border rounded-xl px-5 py-4 text-sm text-dark
+                             placeholder:text-muted-light focus:outline-none focus:border-gold/40 transition-all duration-300"
                   placeholder="Company name"
                 />
               </div>
@@ -123,8 +123,8 @@ export default function Contact() {
                   id="email"
                   type="email"
                   required
-                  className="w-full bg-charcoal-medium border border-panel-border rounded-xl px-5 py-4 text-sm text-white
-                             placeholder:text-muted-dim focus:outline-none focus:border-gold/40 transition-all duration-300"
+                  className="w-full bg-charcoal-medium border border-panel-border rounded-xl px-5 py-4 text-sm text-dark
+                             placeholder:text-muted-light focus:outline-none focus:border-gold/40 transition-all duration-300"
                   placeholder="you@company.com"
                 />
               </div>
@@ -136,8 +136,8 @@ export default function Contact() {
                 <input
                   id="phone"
                   type="tel"
-                  className="w-full bg-charcoal-medium border border-panel-border rounded-xl px-5 py-4 text-sm text-white
-                             placeholder:text-muted-dim focus:outline-none focus:border-gold/40 transition-all duration-300"
+                  className="w-full bg-charcoal-medium border border-panel-border rounded-xl px-5 py-4 text-sm text-dark
+                             placeholder:text-muted-light focus:outline-none focus:border-gold/40 transition-all duration-300"
                   placeholder="+44 20 0000 0000"
                 />
               </div>
@@ -149,8 +149,8 @@ export default function Contact() {
                 <textarea
                   id="message"
                   rows={5}
-                  className="w-full bg-charcoal-medium border border-panel-border rounded-xl px-5 py-4 text-sm text-white
-                             placeholder:text-muted-dim focus:outline-none focus:border-gold/40 transition-all duration-300 resize-none"
+                  className="w-full bg-charcoal-medium border border-panel-border rounded-xl px-5 py-4 text-sm text-dark
+                             placeholder:text-muted-light focus:outline-none focus:border-gold/40 transition-all duration-300 resize-none"
                   placeholder="Tell us about your project requirements, timeline, and any specific needs..."
                 />
               </div>

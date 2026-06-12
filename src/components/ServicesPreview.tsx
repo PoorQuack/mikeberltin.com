@@ -35,12 +35,12 @@ export default function ServicesPreview() {
         <FadeInSection>
           <div className="text-center mb-20">
             <p className="section-kicker">What We Offer</p>
-            <h2 className="section-title">
-              Tailored services for
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] tracking-tight mb-6">
+              Services built for
               <br />
               demanding <span className="text-gold">environments</span>
             </h2>
-            <p className="section-subtitle mx-auto">
+            <p className="text-muted text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
               Comprehensive solutions that keep your projects on schedule, on budget, and secure.
             </p>
           </div>

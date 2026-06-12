@@ -13,7 +13,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Construction site background image */}
       <div
@@ -38,39 +38,39 @@ export default function Hero() {
       />
 
       {/* Bottom fade to blend with next section */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-charcoal to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-charcoal-light to-transparent" />
 
       {/* Content */}
       <div
-        className={`relative z-10 text-center max-w-5xl mx-auto px-6 transition-all duration-1000 ease-out ${
+        className={`relative z-10 text-center max-w-5xl mx-auto px-6 text-white transition-all duration-1000 ease-out ${
           visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
       >
         <p className="text-xs font-semibold tracking-[0.3em] uppercase text-gold mb-6">
-          Premium Construction Services
+          We Love to Build
         </p>
-        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[1.05] tracking-tight mb-8">
-          Reliable Workforce,
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[1.05] tracking-tight mb-8">
+          Workforce,
           <br />
           <span className="text-gold">Logistics</span> &{' '}
           <span className="text-gold">Security</span>
           <br />
-          Solutions
+          That Delivers
         </h1>
-        <p className="text-muted text-lg md:text-xl max-w-3xl mx-auto mb-12 leading-relaxed">
-          Mikeberltin delivers skilled labour, construction logistics, and trusted
-          security services across high-demand projects.
+        <p className="text-white/80 text-lg md:text-xl max-w-3xl mx-auto mb-12 leading-relaxed">
+          We bring passion and precision to every project. Skilled labour, construction
+          logistics, and trusted security — built to keep your project moving.
         </p>
         <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
           <a
-            href="#contact"
+            href="/contact"
             className="btn-gold group hover:scale-105 transition-all duration-300"
           >
             Get a Quote
             <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
           </a>
           <a
-            href="#services"
+            href="/services"
             className="btn-outline-gold hover:scale-105 transition-all duration-300"
           >
             Our Services

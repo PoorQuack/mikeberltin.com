@@ -1,10 +1,11 @@
 ﻿import Nav from '@/components/Nav';
 import Hero from '@/components/Hero';
+import StatsBar from '@/components/StatsBar';
+import HowWeWork from '@/components/HowWeWork';
 import ServicesPreview from '@/components/ServicesPreview';
-import TrustSection from '@/components/TrustSection';
+import ProjectShowcase from '@/components/ProjectShowcase';
 import AboutSummary from '@/components/AboutSummary';
 import CTA from '@/components/CTA';
-import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 
 export default function Home() {
@@ -13,11 +14,12 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
+        <StatsBar />
+        <HowWeWork />
         <ServicesPreview />
-        <TrustSection />
+        <ProjectShowcase />
         <AboutSummary />
         <CTA />
-        <Contact />
       </main>
       <Footer />
     </>

@@ -9,7 +9,7 @@
   }
 
   body {
-    @apply bg-charcoal text-white antialiased;
+    @apply bg-white text-dark antialiased;
     font-family: var(--font-inter), system-ui, sans-serif;
   }
 
@@ -49,8 +49,8 @@
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent text-white font-semibold text-sm tracking-wider uppercase rounded
-           border border-white/20 transition-all duration-300 hover:border-gold hover:text-gold;
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent text-dark font-semibold text-sm tracking-wider uppercase rounded
+           border border-dark/20 transition-all duration-300 hover:border-gold hover:text-gold;
   }
 
   .btn-outline-gold {
@@ -60,6 +60,22 @@
 
   .text-gradient-gold {
     @apply bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent;
+  }
+
+  .section-light {
+    @apply bg-[#f9fafb] text-gray-900;
+  }
+
+  .section-light .section-title {
+    @apply text-gray-900;
+  }
+
+  .section-light .section-subtitle {
+    @apply text-gray-500;
+  }
+
+  .section-light .section-kicker {
+    @apply text-gold-dark;
   }
 
   .fade-in {

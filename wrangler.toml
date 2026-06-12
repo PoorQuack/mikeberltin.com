@@ -1,0 +1,5 @@
+# Wrangler configuration for Cloudflare Pages
+# Project name must match what you named it in the Cloudflare dashboard
+name = "mikeberltin"
+pages_build_output_dir = "out"
+compatibility_date = "2025-06-12"

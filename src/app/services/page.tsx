@@ -1,131 +1,109 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
-import FadeInSection from '@/components/FadeInSection';
-import { HardHat, Users, Shield, Check } from 'lucide-react';
 
 const services = [
   {
+    num: '01 //',
     id: 'logistics',
-    icon: HardHat,
     title: 'Construction Logistics',
-    description:
-      'We manage the coordination of materials, transport, and on-site logistics to keep your project running efficiently.',
-    features: [
-      'Material coordination',
-      'Transport planning',
-      'On-site logistics management',
-    ],
+    desc: 'End-to-end coordination of materials, plant, and transport — engineered to keep your site moving without interruption.',
   },
   {
+    num: '02 //',
     id: 'workforce',
-    icon: Users,
     title: 'Workforce Supply',
-    description:
-      'We provide reliable and skilled labourers ready to integrate into your project.',
-    features: [
-      'General labourers',
-      'Skilled workers',
-      'Flexible workforce solutions',
-    ],
+    desc: 'Vetted, skilled, and ready to mobilise. We put the right people on site — general labourers to specialist trades.',
   },
   {
+    num: '03 //',
     id: 'security',
-    icon: Shield,
     title: 'Security Services',
-    description:
-      'Professional security personnel to ensure safety and control on-site.',
-    features: [
-      'Site security',
-      'Access control',
-      'Monitoring services',
-    ],
+    desc: 'Professional on-site security — access control, perimeter monitoring, and 24/7 personnel to protect your project.',
   },
 ];
 
 export default function ServicesPage() {
+  const blobRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const blob = blobRef.current;
+      if (!blob) return;
+      const x = (e.clientX / window.innerWidth) * 50;
+      const y = (e.clientY / window.innerHeight) * 50;
+      blob.style.transform = `translate(${x}px, ${y}px) rotate(${x}deg)`;
+    };
+    document.addEventListener('mousemove', handleMouseMove);
+    return () => document.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
     <>
       <Nav />
-      <main className="pt-24">
+
+      {/* Fluid background */}
+      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div
+          ref={blobRef}
+          className="absolute w-[600px] h-[600px] opacity-[0.12] rounded-[40%_60%_70%_30%/40%_50%_60%_50%]"
+          style={{
+            background: 'linear-gradient(135deg, #3A3A3D, #B0B0B5, #E5E5E8)',
+            filter: 'blur(80px)',
+            animation: 'blobMove 25s infinite alternate ease-in-out',
+            top: '10%',
+            left: '5%',
+          }}
+        />
+      </div>
+
+      <main className="pt-24 max-w-7xl mx-auto px-8">
+
         {/* Header */}
-        <section className="relative py-24 md:py-36 bg-charcoal border-b border-panel-border overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_30%,rgba(212,175,55,0.06),transparent_70%)]" />
-          <FadeInSection className="relative max-w-7xl mx-auto px-8 text-center">
-            <p className="section-kicker">Our Services</p>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-black leading-[1.1] tracking-tight mb-8">
-              What we <span className="text-gold">deliver</span>
-            </h1>
-            <p className="text-muted text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-              Comprehensive solutions for construction logistics, workforce
-              supply, and site security — tailored to your project requirements.
-            </p>
-          </FadeInSection>
-        </section>
-
-        {/* Services List */}
-        {services.map((service, index) => (
-          <section
-            key={service.id}
-            id={service.id}
-            className={`py-24 md:py-32 border-b border-panel-border ${
-              index % 2 === 0 ? 'bg-charcoal-light' : 'bg-charcoal-medium'
-            }`}
+        <section className="pt-24 md:pt-36 mb-24 md:mb-36">
+          <span className="font-mono text-xs tracking-[0.3em] uppercase text-muted-dim mb-5 block">
+            Capabilities // 2024
+          </span>
+          <h1
+            className="text-[clamp(3rem,10vw,8rem)] font-black leading-[0.9] tracking-[-0.04em]"
+            style={{
+              background: 'linear-gradient(to bottom, #E5E5E8 40%, rgba(229,229,232,0.2))',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
           >
-            <div className="max-w-7xl mx-auto px-8">
-              <div className="grid lg:grid-cols-2 gap-16 items-center">
-                <FadeInSection delay={100} className={index % 2 === 1 ? 'lg:order-2' : ''}>
-                  <div className="flex items-center gap-5 mb-8">
-                    <div className="w-14 h-14 bg-gold/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <service.icon size={28} className="text-gold" />
-                    </div>
-                    <h2 className="text-3xl md:text-4xl font-black leading-[1.1] tracking-tight">
-                      {service.title}
-                    </h2>
-                  </div>
-                  <p className="text-muted text-lg leading-relaxed mb-8">
-                    {service.description}
-                  </p>
-                  <ul className="space-y-4">
-                    {service.features.map((feature) => (
-                      <li
-                        key={feature}
-                        className="flex items-center gap-3 text-base"
-                      >
-                        <Check size={18} className="text-gold flex-shrink-0" />
-                        <span className="text-dark">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </FadeInSection>
-                <FadeInSection delay={200} className={index % 2 === 1 ? 'lg:order-1' : ''}>
-                  <div className="relative aspect-[4/3] bg-panel border border-panel-border rounded-2xl overflow-hidden shadow-lg">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <service.icon size={120} className="text-gold/10" />
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-tr from-gold/5 to-transparent" />
-                  </div>
-                </FadeInSection>
-              </div>
-            </div>
-          </section>
-        ))}
-
-        {/* CTA */}
-        <section className="py-24 md:py-32 bg-charcoal border-t border-panel-border">
-          <div className="max-w-4xl mx-auto px-8 text-center">
-            <FadeInSection>
-              <h2 className="text-4xl md:text-5xl font-black leading-[1.1] tracking-tight mb-6">
-                Need a custom <span className="text-gold">solution</span>?
-              </h2>
-              <p className="text-muted text-lg mb-10 max-w-xl mx-auto">
-                We tailor our services to match your specific project requirements.
-              </p>
-              <a href="/contact" className="btn-gold hover:scale-105 transition-all duration-300">
-                Get in Touch
-              </a>
-            </FadeInSection>
-          </div>
+            What We<br />Deliver.
+          </h1>
         </section>
+
+        {/* Services Flow */}
+        <section className="services-flow">
+          {services.map((s) => (
+            <a
+              key={s.id}
+              href={`/contact`}
+              className="service-row group"
+            >
+              <div className="service-num">{s.num}</div>
+              <div className="service-title">{s.title}</div>
+              <div className="service-desc">{s.desc}</div>
+              <div className="merc-orb" />
+            </a>
+          ))}
+        </section>
+
+        {/* Footer CTA */}
+        <section className="services-footer-cta">
+          <span className="font-mono text-xs tracking-[0.3em] uppercase text-muted-dim block mb-10">
+            Ready to mobilise your next project?
+          </span>
+          <a href="/contact" className="services-cta-btn">
+            Start the Conversation
+          </a>
+        </section>
+
       </main>
       <Footer />
     </>

@@ -1,7 +1,8 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { AnimatedThemeToggler } from '@/components/ui/animated-theme-toggler';
 
 const links = [
   { href: '/', label: 'Home' },
@@ -24,33 +25,37 @@ export default function Nav() {
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-white/95 backdrop-blur-xl border-b border-panel-border py-5 shadow-sm'
-          : 'bg-white/95 backdrop-blur-sm py-7'
+          ? 'bg-charcoal/98 backdrop-blur-xl border-b border-panel-border py-4 shadow-lg shadow-black/20'
+          : 'bg-charcoal/95 backdrop-blur-sm py-6'
       }`}
     >
       <div className="max-w-7xl mx-auto px-8 flex items-center justify-between">
-        <a href="/" className="relative group">
-          <span className="text-2xl font-black tracking-[0.2em] uppercase text-gold">
-            MIKEBERLTIN
-          </span>
-          <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gold/50 group-hover:bg-gold transition-colors duration-300" />
+        <a href="/" className="relative group flex-shrink-0">
+          <img
+            src="/logo.png"
+            alt="Mikeberltin"
+            className="h-10 md:h-12 w-auto transition-opacity duration-300 group-hover:opacity-90"
+          />
         </a>
 
-        <ul className="hidden md:flex gap-12">
-          {links.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                className="text-sm font-medium tracking-[0.1em] uppercase text-muted hover:text-gold transition-all duration-300"
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className="hidden md:flex items-center gap-12">
+          <ul className="flex gap-12">
+            {links.map((l) => (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  className="text-sm font-medium tracking-[0.12em] uppercase text-gold-light hover:text-gold transition-all duration-300"
+                >
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <AnimatedThemeToggler sound={false} />
+        </div>
 
         <button
-          className="md:hidden text-dark hover:text-gold hover:scale-110 transition-all duration-300"
+          className="md:hidden text-gold-light hover:text-gold hover:scale-110 transition-all duration-300"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
@@ -59,17 +64,21 @@ export default function Nav() {
       </div>
 
       {open && (
-        <div className="md:hidden fixed inset-0 top-0 bg-white/98 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-8 sm:gap-12">
+        <div className="md:hidden fixed inset-0 top-0 bg-charcoal/98 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-8 sm:gap-12">
+          <img src="/logo.png" alt="Mikeberltin" className="h-10 w-auto mb-4" />
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="text-xl sm:text-2xl font-bold text-dark hover:text-gold transition-all duration-300"
+              className="text-xl sm:text-2xl font-bold text-gold-light hover:text-gold transition-all duration-300"
             >
               {l.label}
             </a>
           ))}
+          <div className="mt-4">
+            <AnimatedThemeToggler sound={false} />
+          </div>
         </div>
       )}
     </nav>

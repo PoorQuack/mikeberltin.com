@@ -25,7 +25,7 @@ export default function CTA() {
           <br />
           vision into <span className="text-gold">reality</span>?
         </h2>
-        <p className="text-muted text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-dark text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
           We bring passion, precision, and people to every project.
           Tell us what you are building and we will show you how we can help.
         </p>

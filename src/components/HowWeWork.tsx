@@ -27,7 +27,7 @@ const steps = [
 
 export default function HowWeWork() {
   return (
-    <section className="py-24 md:py-36 bg-charcoal-medium border-b border-panel-border">
+    <section className="py-24 md:py-36 bg-charcoal-light border-b border-panel-border">
       <div className="max-w-7xl mx-auto px-8">
         <FadeInSection>
           <div className="text-center mb-20">
@@ -35,7 +35,7 @@ export default function HowWeWork() {
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] tracking-tight mb-6">
               How We <span className="text-gold">Work</span>
             </h2>
-            <p className="text-muted text-lg md:text-xl max-w-2xl mx-auto">
+            <p className="text-dark text-lg md:text-xl max-w-2xl mx-auto">
               A simple three-step process designed to get your project the support it needs, fast.
             </p>
           </div>
@@ -59,7 +59,7 @@ export default function HowWeWork() {
                 </span>
 
                 <h3 className="text-xl md:text-2xl font-black mb-4">{step.title}</h3>
-                <p className="text-muted text-sm md:text-base leading-relaxed max-w-xs mx-auto">
+                <p className="text-dark text-sm md:text-base leading-relaxed max-w-xs mx-auto">
                   {step.description}
                 </p>
               </div>

@@ -5,7 +5,7 @@ import FadeInSection from './FadeInSection';
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-30 md:py-38 bg-charcoal border-b border-panel-border">
+    <section id="contact" className="py-30 md:py-38 bg-charcoal-light border-b border-panel-border">
       <div className="max-w-7xl mx-auto px-8">
         <FadeInSection>
           <div className="text-center mb-20">

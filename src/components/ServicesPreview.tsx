@@ -40,7 +40,7 @@ export default function ServicesPreview() {
               <br />
               demanding <span className="text-gold">environments</span>
             </h2>
-            <p className="text-muted text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+            <p className="text-dark text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
               Comprehensive solutions that keep your projects on schedule, on budget, and secure.
             </p>
           </div>
@@ -76,7 +76,7 @@ export default function ServicesPreview() {
                   <h3 className="text-xl font-bold mb-3 transition-all duration-300 group-hover:text-gold">
                     {service.title}
                   </h3>
-                  <p className="text-muted text-sm leading-relaxed mb-6 flex-1">
+                  <p className="text-dark text-sm leading-relaxed mb-6 flex-1">
                     {service.description}
                   </p>
                   <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-gold group-hover:gap-3 transition-all duration-300">

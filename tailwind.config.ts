@@ -6,39 +6,68 @@ const config: Config = {
     extend: {
       colors: {
         gold: {
-          DEFAULT: '#d4af37',
-          light: '#e8c94d',
-          dark: '#b8960f',
-          metallic: '#c9a84c',
+          DEFAULT: '#B0B0B5',
+          light: '#E5E5E8',
+          dark: '#8A8A90',
+          metallic: '#C0C0C5',
         },
         charcoal: {
-          DEFAULT: '#ffffff',
-          light: '#f3f4f6',
-          medium: '#f9fafb',
+          DEFAULT: 'var(--color-charcoal)',
+          light: 'var(--color-charcoal-light)',
+          medium: 'var(--color-charcoal-medium)',
         },
         panel: {
-          DEFAULT: '#ffffff',
-          hover: '#f9fafb',
-          border: '#e5e7eb',
+          DEFAULT: 'var(--color-panel)',
+          hover: 'var(--color-panel-hover)',
+          border: 'var(--color-panel-border)',
         },
         surface: {
-          DEFAULT: '#ffffff',
-          secondary: '#f3f4f6',
-          card: '#ffffff',
-          elevated: '#f9fafb',
+          DEFAULT: 'var(--color-surface)',
+          secondary: 'var(--color-surface-secondary)',
+          card: 'var(--color-surface-card)',
+          elevated: 'var(--color-surface-elevated)',
         },
         muted: {
-          DEFAULT: '#4b5563',
-          dim: '#6b7280',
-          light: '#9ca3af',
+          DEFAULT: 'var(--color-muted)',
+          dim: 'var(--color-muted-dim)',
+          light: 'var(--color-muted-light)',
         },
         dark: {
-          DEFAULT: '#111827',
-          soft: '#1f2937',
+          DEFAULT: 'var(--color-dark)',
+          soft: 'var(--color-dark-soft)',
         },
         yellow: {
           construction: '#facc15',
         },
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        card: {
+          DEFAULT: 'var(--card)',
+          foreground: 'var(--card-foreground)',
+        },
+        popover: {
+          DEFAULT: 'var(--popover)',
+          foreground: 'var(--popover-foreground)',
+        },
+        primary: {
+          DEFAULT: 'var(--primary)',
+          foreground: 'var(--primary-foreground)',
+        },
+        secondary: {
+          DEFAULT: 'var(--secondary)',
+          foreground: 'var(--secondary-foreground)',
+        },
+        destructive: {
+          DEFAULT: 'var(--destructive)',
+          foreground: 'var(--destructive-foreground)',
+        },
+        accent: {
+          DEFAULT: 'var(--accent)',
+          foreground: 'var(--accent-foreground)',
+        },
+        border: 'var(--border)',
+        input: 'var(--input)',
+        ring: 'var(--ring)',
       },
       fontFamily: {
         sans: ["'Inter'", 'system-ui', 'sans-serif'],

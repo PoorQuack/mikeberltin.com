@@ -57,7 +57,7 @@ export default function Hero() {
           <br />
           That Delivers
         </h1>
-        <p className="text-white/80 text-lg md:text-xl max-w-3xl mx-auto mb-12 leading-relaxed">
+        <p className="text-dark/80 text-lg md:text-xl max-w-3xl mx-auto mb-12 leading-relaxed">
           We bring passion and precision to every project. Skilled labour, construction
           logistics, and trusted security — built to keep your project moving.
         </p>

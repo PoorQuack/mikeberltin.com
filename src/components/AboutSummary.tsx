@@ -8,7 +8,7 @@ export default function AboutSummary() {
   ];
 
   return (
-    <section id="about" className="py-30 md:py-38 bg-charcoal border-b border-panel-border">
+    <section id="about" className="py-30 md:py-38 bg-charcoal-light border-b border-panel-border">
       <div className="max-w-7xl mx-auto px-8">
         <div className="grid lg:grid-cols-2 gap-20 items-start">
           <FadeInSection>
@@ -26,14 +26,14 @@ export default function AboutSummary() {
 
           <FadeInSection delay={200}>
             <div className="space-y-8">
-              <p className="text-muted text-lg leading-relaxed">
+              <p className="text-dark text-lg leading-relaxed">
                 Mikeberltin delivers integrated construction logistics, skilled
                 workforce supply, and professional security services across the
                 UK. We partner with contractors, developers, and infrastructure
                 projects that demand precision, reliability, and absolute
                 discretion.
               </p>
-              <p className="text-muted text-lg leading-relaxed">
+              <p className="text-dark text-lg leading-relaxed">
                 Every engagement is backed by rigorous vetting, real-time
                 coordination, and a leadership team with decades of combined field
                 experience. We do not cut corners — we build frameworks that last.

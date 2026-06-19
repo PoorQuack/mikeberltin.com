@@ -5,7 +5,7 @@
         <div className="flex flex-col md:flex-row items-center justify-between gap-10">
           <div className="text-center md:text-left">
             <div className="relative inline-block">
-              <img src="/logo.png" alt="Mikeberltin" className="h-10 md:h-12 w-auto" />
+              <img src="/logo.svg" alt="MCL Mikeberltin" className="h-14 md:h-16 w-auto" />
             </div>
             <p className="text-gold text-sm mt-4">
               Construction Logistics &bull; Workforce Supply &bull; Security

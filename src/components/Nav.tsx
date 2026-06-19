@@ -32,9 +32,9 @@ export default function Nav() {
       <div className="max-w-7xl mx-auto px-8 flex items-center justify-between">
         <a href="/" className="relative group flex-shrink-0">
           <img
-            src="/logo.png"
-            alt="Mikeberltin"
-            className="h-10 md:h-12 w-auto transition-opacity duration-300 group-hover:opacity-90"
+            src="/logo.svg"
+            alt="MCL Mikeberltin"
+            className="h-14 md:h-16 w-auto transition-opacity duration-300 group-hover:opacity-90"
           />
         </a>
 
@@ -65,7 +65,7 @@ export default function Nav() {
 
       {open && (
         <div className="md:hidden fixed inset-0 top-0 bg-charcoal/98 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-8 sm:gap-12">
-          <img src="/logo.png" alt="Mikeberltin" className="h-10 w-auto mb-4" />
+          <img src="/logo.svg" alt="MCL Mikeberltin" className="h-14 w-auto mb-4" />
           {links.map((l) => (
             <a
               key={l.href}

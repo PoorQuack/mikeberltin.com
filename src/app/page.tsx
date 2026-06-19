@@ -60,12 +60,12 @@ export default function Home() {
               [ SYSTEM_STATUS ]
             </div>
             <div className="text-xl font-bold mb-5">
-              DEPLOYMENT READINESS: <span className="text-gold">98.4%</span>
+              EST. <span className="text-gold">2020</span> · OPERATING
             </div>
             <div className="h-px bg-panel-border mb-5" />
             <div className="flex justify-between font-mono text-xs tracking-wider text-muted-dim">
-              <span>ACTIVE SITES: <span className="text-dark">142</span></span>
-              <span>PERSONNEL: <span className="text-dark">12.4k</span></span>
+              <span>ACTIVE PROJECTS: <span className="text-dark">5</span></span>
+              <span>PERSONNEL: <span className="text-dark">20</span></span>
             </div>
           </div>
         </section>
@@ -91,6 +91,19 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        {/* Image strip */}
+        <section className="max-w-7xl mx-auto px-5 sm:px-8 mt-16 grid grid-cols-3 gap-[2px]">
+          <div className="overflow-hidden h-48 md:h-64">
+            <img className="img-bw" src="https://images.unsplash.com/photo-1590496793929-36417d3117de?auto=format&fit=crop&q=80&w=800" alt="Construction cranes" />
+          </div>
+          <div className="overflow-hidden h-48 md:h-64">
+            <img className="img-bw" src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=800" alt="Site workers" />
+          </div>
+          <div className="overflow-hidden h-48 md:h-64">
+            <img className="img-bw" src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&q=80&w=800" alt="Security guard" />
+          </div>
+        </section>
 
         {/* Details Grid */}
         <section className="details-grid">

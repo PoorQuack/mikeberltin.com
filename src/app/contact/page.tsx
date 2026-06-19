@@ -63,15 +63,25 @@ export default function ContactPage() {
             <div className="cx-rivet cx-r-br" />
             <span className="cx-label">Direct Frequency</span>
             <a href="mailto:info@mikeberltin.com" className="cx-data-value">info@mikeberltin.com</a>
-            <a href="tel:+442000000000" className="cx-data-value">+44 20 0000 0000</a>
+            <a href="tel:+447411187131" className="cx-data-value">+44 7411 187131</a>
           </div>
 
           <div className="cx-brass-plate cx-module">
             <div className="cx-rivet cx-r-tl" />
             <div className="cx-rivet cx-r-tr" />
             <span className="cx-label">Coordinates</span>
-            <div className="cx-data-value">London, United Kingdom</div>
-            <div className="cx-data-value" style={{ opacity: 0.6, fontSize: '0.9rem' }}>51.5074° N, 0.1278° W</div>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=39+Kingsland+Avenue+Kingsthorpe+Northampton+NN2+7PP"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cx-data-value"
+              style={{ display: 'block', cursor: 'pointer', userSelect: 'text' }}
+            >
+              <span style={{ display: 'block' }}>39 Kingsland Avenue</span>
+              <span style={{ display: 'block', opacity: 0.8 }}>Kingsthorpe, Northampton</span>
+              <span style={{ display: 'block', opacity: 0.8 }}>NN2 7PP</span>
+              <span style={{ display: 'block', opacity: 0.45, fontSize: '0.8rem' }}>52.2623° N, 0.8921° W</span>
+            </a>
           </div>
 
           <div className="cx-brass-plate cx-module" style={{ background: 'transparent', border: '1px dashed #9c7a3c' }}>

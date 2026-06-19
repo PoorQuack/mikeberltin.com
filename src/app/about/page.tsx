@@ -77,6 +77,7 @@ export default function AboutPage() {
         <section className="about-philosophy" data-reveal>
           <div className="about-philosophy-image">
             <img
+              className="img-bw"
               src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=1200"
               alt="Construction site"
             />
@@ -119,7 +120,7 @@ export default function AboutPage() {
           </div>
           <div style={{ textAlign: 'right' }}>
             <span className="about-mono">Mikeberltin Ltd.</span>
-            <p className="about-footer-copy">London, United Kingdom<br />info@mikeberltin.com</p>
+            <p className="about-footer-copy">Northampton, United Kingdom<br />info@mikeberltin.com</p>
           </div>
         </footer>
       </main>

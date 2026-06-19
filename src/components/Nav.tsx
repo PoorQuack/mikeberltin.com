@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { AnimatedThemeToggler } from '@/components/ui/animated-theme-toggler';
 
 const links = [
   { href: '/', label: 'Home' },
@@ -51,7 +50,6 @@ export default function Nav() {
               </li>
             ))}
           </ul>
-          <AnimatedThemeToggler sound={false} />
         </div>
 
         <button
@@ -76,9 +74,6 @@ export default function Nav() {
               {l.label}
             </a>
           ))}
-          <div className="mt-4">
-            <AnimatedThemeToggler sound={false} />
-          </div>
         </div>
       )}
     </nav>

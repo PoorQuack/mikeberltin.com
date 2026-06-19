@@ -14,7 +14,9 @@
 
           <div className="text-gold text-sm text-center md:text-right space-y-1">
             <p className="font-medium text-dark">info@mikeberltin.com</p>
-            <p>London, United Kingdom</p>
+            <a href="tel:+447411187131" className="block hover:text-dark transition-colors">+44 7411 187131</a>
+            <p>39 Kingsland Avenue, Kingsthorpe</p>
+            <p>Northampton, NN2 7PP</p>
           </div>
         </div>
 

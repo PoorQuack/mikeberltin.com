@@ -8,18 +8,21 @@ const services = [
   {
     num: '01 //',
     id: 'logistics',
+    href: '/services/logistics',
     title: 'Construction Logistics',
     desc: 'End-to-end coordination of materials, plant, and transport — engineered to keep your site moving without interruption.',
   },
   {
     num: '02 //',
     id: 'workforce',
+    href: '/services/workforce',
     title: 'Workforce Supply',
     desc: 'Vetted, skilled, and ready to mobilise. We put the right people on site — general labourers to specialist trades.',
   },
   {
     num: '03 //',
     id: 'security',
+    href: '/services/security',
     title: 'Security Services',
     desc: 'Professional on-site security — access control, perimeter monitoring, and 24/7 personnel to protect your project.',
   },
@@ -83,7 +86,7 @@ export default function ServicesPage() {
           {services.map((s) => (
             <a
               key={s.id}
-              href={`/contact`}
+              href={s.href}
               className="service-row group"
             >
               <div className="service-num">{s.num}</div>

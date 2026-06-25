@@ -1,11 +1,23 @@
 "use client";
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { motion, useAnimation } from "motion/react";
 import { cn } from "@/lib/utils";
 
+// ViewBox is wide & tall — preserveAspectRatio="none" makes the SVG
+// stretch to fill whatever container it sits in at any screen size.
+const VW = 1600;
+const VH = 320;
+const PADDING = 40; // px each side in viewBox units
+const TEXT_W = VW - PADDING * 2;
+
+const textStyle: React.CSSProperties = {
+  fontFamily: "helvetica, Arial, sans-serif",
+  fontSize: 220,
+  fontWeight: 900,
+};
+
 export const TextHoverEffect = ({
   text,
-  duration,
   className,
 }: {
   text: string;
@@ -14,22 +26,37 @@ export const TextHoverEffect = ({
   className?: string;
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
-  const [hovered, setHovered] = useState(false);
-  const [maskCX, setMaskCX] = useState("50%");
-  const [maskCY, setMaskCY] = useState("50%");
+  const measureRef = useRef<SVGTextElement>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [charBounds, setCharBounds] = useState<{ x: number; w: number }[]>([]);
   const controls = useAnimation();
+  const chars = Array.from(text);
 
-  // Replay draw-on animation every time the text scrolls into view
+  // Measure per-character widths from the textLength-stretched measurement element
+  useEffect(() => {
+    const el = measureRef.current;
+    if (!el) return;
+    const bounds: { x: number; w: number }[] = [];
+    let cursor = 0;
+    for (let i = 0; i < chars.length; i++) {
+      const w = el.getSubStringLength(i, 1);
+      bounds.push({ x: PADDING + cursor, w });
+      cursor += w;
+    }
+    setCharBounds(bounds);
+  }, [text]);
+
+  // Replay draw-on animation on scroll into view
   useEffect(() => {
     const el = svgRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          controls.set({ strokeDashoffset: 1000, strokeDasharray: 1000 });
+          controls.set({ strokeDashoffset: 4000, strokeDasharray: 4000 });
           controls.start({
             strokeDashoffset: 0,
-            strokeDasharray: 1000,
+            strokeDasharray: 4000,
             transition: { duration: 4, ease: "easeInOut" },
           });
         }
@@ -40,79 +67,87 @@ export const TextHoverEffect = ({
     return () => observer.disconnect();
   }, [controls]);
 
-  const handleMouseMove = useCallback((e: React.MouseEvent<SVGSVGElement>) => {
+  const handleMouseMove = (e: React.MouseEvent<SVGSVGElement>) => {
+    if (charBounds.length === 0) return;
     const svg = svgRef.current;
     if (!svg) return;
     const rect = svg.getBoundingClientRect();
-    setMaskCX(`${((e.clientX - rect.left) / rect.width) * 100}%`);
-    setMaskCY(`${((e.clientY - rect.top) / rect.height) * 100}%`);
-  }, []);
-
-  const handleMouseEnter = useCallback(() => setHovered(true), []);
-  const handleMouseLeave = useCallback(() => {
-    setHovered(false);
-    setMaskCX("50%");
-    setMaskCY("50%");
-  }, []);
+    // Map cursor to viewBox X accounting for textLength stretch
+    const svgX = ((e.clientX - rect.left) / rect.width) * VW;
+    const idx = charBounds.findIndex((b) => svgX >= b.x && svgX <= b.x + b.w);
+    setHoveredIndex(idx === -1 ? null : idx);
+  };
 
   return (
     <svg
       ref={svgRef}
       width="100%"
       height="100%"
-      viewBox="0 0 400 100"
+      viewBox={`0 0 ${VW} ${VH}`}
+      preserveAspectRatio="none"
       xmlns="http://www.w3.org/2000/svg"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
-      className={cn("select-none uppercase cursor-pointer", className)}
+      onMouseLeave={() => setHoveredIndex(null)}
+      className={cn("select-none cursor-pointer", className)}
     >
       <defs>
-        <linearGradient id="textGradient" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="400" y2="50">
-          <stop offset="0%" stopColor="#FFE566" stopOpacity={hovered ? 1 : 0} />
-          <stop offset="50%" stopColor="#F0A800" stopOpacity={hovered ? 1 : 0} />
-          <stop offset="100%" stopColor="#C87000" stopOpacity={hovered ? 1 : 0} />
+        <linearGradient id="charGold" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2={VH}>
+          <stop offset="0%" stopColor="#e2c07d" />
+          <stop offset="100%" stopColor="#c8a95a" />
         </linearGradient>
-
-        <radialGradient id="revealMask" gradientUnits="objectBoundingBox" cx={maskCX} cy={maskCY} r="25%">
-          <stop offset="0%" stopColor="white" />
-          <stop offset="100%" stopColor="black" />
-        </radialGradient>
-        <mask id="textMask">
-          <rect x="0" y="0" width="100%" height="100%" fill="url(#revealMask)" />
-        </mask>
       </defs>
 
-      {/* Faint outline on hover */}
+      {/* Off-screen measurement element — same textLength as visible text */}
       <text
-        x="50%" y="50%" textAnchor="middle" dominantBaseline="middle"
-        strokeWidth="0.3"
-        className="fill-transparent stroke-neutral-200 font-[helvetica] text-6xl font-bold dark:stroke-neutral-800"
-        style={{ opacity: hovered ? 0.5 : 0 }}
+        ref={measureRef}
+        x={PADDING}
+        y="-9999"
+        textLength={TEXT_W}
+        lengthAdjust="spacingAndGlyphs"
+        style={textStyle}
+        aria-hidden="true"
       >
         {text}
       </text>
 
-      {/* White draw-on stroke — replays on scroll-into-view */}
+      {/* White draw-on stroke — stretched to fill width with padding */}
       <motion.text
-        x="50%" y="50%" textAnchor="middle" dominantBaseline="middle"
-        strokeWidth="0.6"
-        className="fill-transparent stroke-white font-[helvetica] text-6xl font-bold"
-        initial={{ strokeDashoffset: 1000, strokeDasharray: 1000 }}
+        x={PADDING}
+        y="50%"
+        dominantBaseline="middle"
+        fill="transparent"
+        stroke="white"
+        strokeWidth="4"
+        textLength={TEXT_W}
+        lengthAdjust="spacingAndGlyphs"
+        style={textStyle}
+        initial={{ strokeDashoffset: 4000, strokeDasharray: 4000 }}
         animate={controls}
       >
         {text}
       </motion.text>
 
-      {/* Gold hover layer — stroke only, revealed through cursor mask */}
-      <text
-        x="50%" y="50%" textAnchor="middle" dominantBaseline="middle"
-        stroke="url(#textGradient)" strokeWidth="1.2"
-        mask="url(#textMask)"
-        className="fill-transparent font-[helvetica] text-6xl font-bold"
-      >
-        {text}
-      </text>
+      {/* Per-character gold fill — fades in on hover */}
+      {charBounds.length > 0 &&
+        chars.map((char, i) => (
+          <text
+            key={i}
+            x={charBounds[i].x}
+            y="50%"
+            dominantBaseline="middle"
+            fill="url(#charGold)"
+            stroke="none"
+            textLength={charBounds[i].w}
+            lengthAdjust="spacingAndGlyphs"
+            style={{
+              ...textStyle,
+              opacity: hoveredIndex === i ? 1 : 0,
+              transition: hoveredIndex === i ? "opacity 0.05s ease" : "opacity 0.3s ease",
+            }}
+          >
+            {char}
+          </text>
+        ))}
     </svg>
   );
 };

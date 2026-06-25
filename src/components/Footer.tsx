@@ -95,7 +95,7 @@ export default function Footer() {
       </div>
 
       {/* MIKEBERLTIN text hover effect — full width, responsive */}
-      <div className="hidden lg:block w-full h-[16rem] relative z-10">
+      <div className="hidden lg:block w-full h-[18rem] relative z-10">
         <TextHoverEffect text="[MIKEBERLTIN]" className="z-10" />
       </div>
 

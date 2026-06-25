@@ -599,6 +599,18 @@
     -webkit-appearance: none;
   }
   .cx-field textarea { resize: none; }
+  .cx-field .cx-select option {
+    background: #1a1a1c;
+    color: #e5e5e8;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+  .cx-field .cx-select option:hover,
+  .cx-field .cx-select option:checked {
+    background: #2a2118;
+    color: #e2c07d;
+  }
   .cx-field input:focus,
   .cx-field textarea:focus,
   .cx-field .cx-select:focus {

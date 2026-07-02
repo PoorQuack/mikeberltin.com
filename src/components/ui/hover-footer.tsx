@@ -1,23 +1,11 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
-import { motion, useAnimation } from "motion/react";
+import { motion, useAnimationFrame, useMotionValue, useSpring } from "motion/react";
 import { cn } from "@/lib/utils";
-
-// ViewBox is wide & tall — preserveAspectRatio="none" makes the SVG
-// stretch to fill whatever container it sits in at any screen size.
-const VW = 1600;
-const VH = 320;
-const PADDING = 40; // px each side in viewBox units
-const TEXT_W = VW - PADDING * 2;
-
-const textStyle: React.CSSProperties = {
-  fontFamily: "helvetica, Arial, sans-serif",
-  fontSize: 220,
-  fontWeight: 900,
-};
 
 export const TextHoverEffect = ({
   text,
+  duration,
   className,
 }: {
   text: string;
@@ -27,140 +15,210 @@ export const TextHoverEffect = ({
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const measureRef = useRef<SVGTextElement>(null);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [charBounds, setCharBounds] = useState<{ x: number; w: number }[]>([]);
-  const controls = useAnimation();
-  const chars = Array.from(text);
+  const cursorRef = useRef({ x: 0, y: 0 });
+  const [hovered, setHovered] = useState(false);
+  const [textWidth, setTextWidth] = useState(300);
+  const [drawKey, setDrawKey] = useState(0);
 
-  // Measure per-character widths from the textLength-stretched measurement element
+  const targetCx = useMotionValue(150);
+  const targetCy = useMotionValue(50);
+  const cx = useSpring(targetCx, { stiffness: 300, damping: 30 });
+  const cy = useSpring(targetCy, { stiffness: 300, damping: 30 });
+
   useEffect(() => {
-    const el = measureRef.current;
-    if (!el) return;
-    const bounds: { x: number; w: number }[] = [];
-    let cursor = 0;
-    for (let i = 0; i < chars.length; i++) {
-      const w = el.getSubStringLength(i, 1);
-      bounds.push({ x: PADDING + cursor, w });
-      cursor += w;
+    const measure = () => {
+      if (measureRef.current) {
+        const width = measureRef.current.getComputedTextLength();
+        if (width > 0) setTextWidth(width);
+      }
+    };
+
+    measure();
+
+    if (typeof document !== "undefined" && document.fonts) {
+      document.fonts.ready.then(measure);
     }
-    setCharBounds(bounds);
+
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
   }, [text]);
 
-  // Replay draw-on animation on scroll into view
   useEffect(() => {
-    const el = svgRef.current;
-    if (!el) return;
+    if (!svgRef.current) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          controls.set({ strokeDashoffset: 4000, strokeDasharray: 4000 });
-          controls.start({
-            strokeDashoffset: 0,
-            strokeDasharray: 4000,
-            transition: { duration: 4, ease: "easeInOut" },
-          });
+          setDrawKey((k) => k + 1);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.3 }
     );
-    observer.observe(el);
+    observer.observe(svgRef.current);
     return () => observer.disconnect();
-  }, [controls]);
+  }, []);
 
-  const handleMouseMove = (e: React.MouseEvent<SVGSVGElement>) => {
-    if (charBounds.length === 0) return;
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      cursorRef.current = { x: e.clientX, y: e.clientY };
+      if (!svgRef.current) return;
+      const rect = svgRef.current.getBoundingClientRect();
+      const inside =
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom;
+      setHovered(inside);
+    };
+    document.addEventListener("mousemove", handleMouseMove);
+    return () => document.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  useAnimationFrame(() => {
+    if (!svgRef.current) return;
     const svg = svgRef.current;
-    if (!svg) return;
     const rect = svg.getBoundingClientRect();
-    // Map cursor to viewBox X accounting for textLength stretch
-    const svgX = ((e.clientX - rect.left) / rect.width) * VW;
-    const idx = charBounds.findIndex((b) => svgX >= b.x && svgX <= b.x + b.w);
-    setHoveredIndex(idx === -1 ? null : idx);
-  };
+    const viewBoxX = svg.viewBox.baseVal.x;
+    const cursorX = cursorRef.current.x;
+    const cursorY = cursorRef.current.y;
+    const cursorXPercent = ((cursorX - rect.left) / rect.width) * 100;
+    const cursorYPercent = ((cursorY - rect.top) / rect.height) * 100;
+    // Convert cursor position to absolute viewBox units and compensate for scroll
+    const cxViewBox = (cursorXPercent / 100) * 300 + viewBoxX;
+    const cyViewBox = cursorYPercent;
+    targetCx.set(cxViewBox);
+    targetCy.set(cyViewBox);
+  });
 
   return (
-    <svg
+    <motion.svg
       ref={svgRef}
       width="100%"
       height="100%"
-      viewBox={`0 0 ${VW} ${VH}`}
+      viewBox="0 0 300 100"
       preserveAspectRatio="none"
       xmlns="http://www.w3.org/2000/svg"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={() => setHoveredIndex(null)}
-      className={cn("select-none cursor-pointer", className)}
+      className={cn("select-none uppercase pointer-events-none", className)}
+      animate={{
+        viewBox: [`0 0 300 100`, `${textWidth} 0 300 100`],
+      }}
+      transition={{
+        duration: textWidth / 15,
+        repeat: Infinity,
+        ease: "linear",
+      }}
     >
       <defs>
-        <linearGradient id="charGold" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2={VH}>
-          <stop offset="0%" stopColor="#e2c07d" />
-          <stop offset="100%" stopColor="#c8a95a" />
+        <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#eab308" />
+          <stop offset="25%" stopColor="#ef4444" />
+          <stop offset="50%" stopColor="#80eeb4" />
+          <stop offset="75%" stopColor="#06b6d4" />
+          <stop offset="100%" stopColor="#8b5cf6" />
         </linearGradient>
+
+        <motion.radialGradient
+          id="revealMask"
+          gradientUnits="userSpaceOnUse"
+          r={60}
+          cx={cx}
+          cy={cy}
+        >
+          <stop offset="0%" stopColor="white" />
+          <stop offset="100%" stopColor="black" />
+        </motion.radialGradient>
+        <mask
+          id="textMask"
+          maskUnits="userSpaceOnUse"
+          maskContentUnits="userSpaceOnUse"
+          x="0"
+          y="0"
+          width={textWidth * 2}
+          height="100"
+        >
+          <rect
+            x="0"
+            y="0"
+            width={textWidth * 2}
+            height="100"
+            fill="url(#revealMask)"
+          />
+        </mask>
       </defs>
 
-      {/* Off-screen measurement element — same textLength as visible text */}
+      {/* Hidden measurement text to get actual rendered width */}
       <text
         ref={measureRef}
-        x={PADDING}
+        x="0"
         y="-9999"
-        textLength={TEXT_W}
-        lengthAdjust="spacingAndGlyphs"
-        style={textStyle}
+        className="fill-transparent font-[helvetica] text-7xl font-bold"
         aria-hidden="true"
       >
         {text}
       </text>
 
-      {/* White draw-on stroke — stretched to fill width with padding */}
-      <motion.text
-        x={PADDING}
-        y="50%"
-        dominantBaseline="middle"
-        fill="transparent"
-        stroke="white"
-        strokeWidth="4"
-        textLength={TEXT_W}
-        lengthAdjust="spacingAndGlyphs"
-        style={textStyle}
-        initial={{ strokeDashoffset: 4000, strokeDasharray: 4000 }}
-        animate={controls}
-      >
-        {text}
-      </motion.text>
-
-      {/* Per-character gold fill — fades in on hover */}
-      {charBounds.length > 0 &&
-        chars.map((char, i) => (
-          <text
-            key={i}
-            x={charBounds[i].x}
-            y="50%"
-            dominantBaseline="middle"
-            fill="url(#charGold)"
-            stroke="none"
-            textLength={charBounds[i].w}
-            lengthAdjust="spacingAndGlyphs"
-            style={{
-              ...textStyle,
-              opacity: hoveredIndex === i ? 1 : 0,
-              transition: hoveredIndex === i ? "opacity 0.05s ease" : "opacity 0.3s ease",
-            }}
-          >
-            {char}
-          </text>
+      <g>
+        {[0, textWidth].map((offset) => (
+          <React.Fragment key={offset}>
+            <text
+              x={offset}
+              y="50%"
+              textAnchor="start"
+              dominantBaseline="middle"
+              strokeWidth="0.3"
+              className="fill-transparent stroke-[#0F0F11] font-[helvetica] text-7xl font-bold"
+            >
+              {text}
+            </text>
+            <motion.text
+              key={drawKey}
+              x={offset}
+              y="50%"
+              textAnchor="start"
+              dominantBaseline="middle"
+              strokeWidth="0.3"
+              className="fill-transparent stroke-[#0F0F11] font-[helvetica] text-7xl font-bold"
+              initial={{ strokeDashoffset: 1000, strokeDasharray: 1000 }}
+              animate={{
+                strokeDashoffset: 0,
+                strokeDasharray: 1000,
+              }}
+              transition={{
+                duration: 4,
+                ease: "easeInOut",
+              }}
+            >
+              {text}
+            </motion.text>
+            <motion.text
+              x={offset}
+              y="50%"
+              textAnchor="start"
+              dominantBaseline="middle"
+              stroke="url(#textGradient)"
+              strokeWidth="0.3"
+              mask="url(#textMask)"
+              className="fill-transparent font-[helvetica] text-7xl font-bold"
+              animate={{ opacity: hovered ? 1 : 0 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+            >
+              {text}
+            </motion.text>
+          </React.Fragment>
         ))}
-    </svg>
+      </g>
+    </motion.svg>
   );
 };
 
-export function FooterBackgroundGradient() {
+
+export const FooterBackgroundGradient = () => {
   return (
     <div
-      aria-hidden
-      className="pointer-events-none absolute inset-0 z-0"
+      className="absolute inset-0 z-0"
       style={{
         background:
-          "radial-gradient(ellipse 80% 60% at 50% 100%, #C8A95A33 0%, transparent 70%)",
+          "radial-gradient(125% 125% at 50% 10%, #0F0F1166 50%, #3ca2fa33 100%)",
       }}
     />
   );
-}
+};

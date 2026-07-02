@@ -56,17 +56,31 @@ export default function Home() {
             <div className="rivet r-tr" />
             <div className="rivet r-bl" />
             <div className="rivet r-br" />
-            <div className="font-mono text-xs tracking-[0.2em] uppercase text-gold mb-4">
-              [ SYSTEM_STATUS ]
+            <div className="flex items-center justify-between mb-4">
+              <span className="font-mono text-xs tracking-[0.2em] uppercase text-gold">
+                [ SYSTEM_STATUS ]
+              </span>
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-gold opacity-75 animate-ping" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-gold" />
+              </span>
             </div>
             <div className="text-xl font-bold mb-5">
-              EST. <span className="text-gold">2020</span> · OPERATING
+              ESTABLISHED <span className="text-gold">2020</span> · OPERATING
             </div>
             <div className="h-px bg-panel-border mb-5" />
-            <div className="flex justify-between font-mono text-xs tracking-wider text-muted-dim">
+            <div className="flex justify-between font-mono text-xs tracking-wider text-muted-dim mb-8">
               <span>ACTIVE PROJECTS: <span className="text-dark">5</span></span>
               <span>PERSONNEL: <span className="text-dark">20</span></span>
             </div>
+            <a
+              href="/contact"
+              className="group flex items-center justify-center gap-2 w-full py-4 text-dark font-mono text-xs tracking-[0.2em] uppercase transition-all duration-300 hover:text-gold"
+            >
+              <span className="transition-transform duration-300 group-hover:-translate-x-0.5">[</span>
+              Start a Project
+              <span className="transition-transform duration-300 group-hover:translate-x-0.5">]</span>
+            </a>
           </div>
         </section>
 

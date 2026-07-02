@@ -406,7 +406,7 @@
     bottom: 40px;
     left: 40px;
     font-family: var(--font-mono, monospace);
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     letter-spacing: 0.12em;
     opacity: 0.35;
     writing-mode: vertical-rl;
@@ -419,7 +419,7 @@
     bottom: 40px;
     right: 40px;
     font-family: var(--font-mono, monospace);
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     letter-spacing: 0.12em;
     opacity: 0.35;
     color: var(--color-muted);
@@ -479,7 +479,7 @@
     line-height: 1.7;
     opacity: 0.75;
     font-family: var(--font-mono, monospace);
-    font-size: 0.88rem;
+    font-size: 1rem;
     color: var(--color-muted);
   }
 
@@ -516,7 +516,7 @@
   .cx-r-br { bottom: 10px; right: 10px; }
   .cx-label {
     font-family: var(--font-mono, monospace);
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.2em;
     opacity: 0.65;
@@ -525,7 +525,7 @@
     color: #e2c07d;
   }
   .cx-data-value {
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: #fff;
     text-decoration: none;
     display: block;
@@ -592,22 +592,52 @@
     padding: 15px 0;
     color: #e2c07d;
     font-family: var(--font-mono, monospace);
-    font-size: 0.9rem;
+    font-size: 1rem;
     outline: none;
     transition: border-color 0.4s;
     appearance: none;
     -webkit-appearance: none;
   }
   .cx-field textarea { resize: none; }
-  .cx-field .cx-select option {
+  .cx-field .cx-select {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+  }
+  .cx-select-chevron {
+    color: #e2c07d;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+  .cx-select-chevron-open {
+    transform: rotate(180deg);
+  }
+  .cx-select-list {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    z-index: 20;
     background: #1a1a1c;
+    border: 1px solid #4a3a1e;
+    max-height: 240px;
+    overflow-y: auto;
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+  }
+  .cx-select-option {
     color: #e5e5e8;
     font-family: var(--font-mono, monospace);
-    font-size: 0.9rem;
-    padding: 10px;
+    font-size: 1rem;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
   }
-  .cx-field .cx-select option:hover,
-  .cx-field .cx-select option:checked {
+  .cx-select-option:hover,
+  .cx-select-option-active {
     background: #2a2118;
     color: #e2c07d;
   }
@@ -623,7 +653,7 @@
     pointer-events: none;
     transition: 0.3s ease all;
     opacity: 0.5;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-family: var(--font-mono, monospace);
@@ -635,7 +665,7 @@
   .cx-field textarea:valid ~ label,
   .cx-select-label {
     top: -16px !important;
-    font-size: 0.6rem !important;
+    font-size: 0.7rem !important;
     opacity: 1 !important;
   }
   .cx-submit {
@@ -652,7 +682,7 @@
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     width: fit-content;
   }
   .cx-submit:hover {

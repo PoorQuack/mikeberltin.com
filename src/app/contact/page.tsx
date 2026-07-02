@@ -1,11 +1,22 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { ChevronDown } from 'lucide-react';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 
+const serviceOptions = [
+  { value: 'logistics', label: 'Construction Logistics' },
+  { value: 'workforce', label: 'Workforce Supply' },
+  { value: 'security', label: 'Security Services' },
+  { value: 'other', label: 'General Enquiry' },
+];
+
 export default function ContactPage() {
   const [time, setTime] = useState('');
+  const [service, setService] = useState('');
+  const [serviceOpen, setServiceOpen] = useState(false);
+  const serviceRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const tick = () => {
@@ -32,6 +43,16 @@ export default function ContactPage() {
       clearInterval(id);
       document.removeEventListener('mousemove', handleMouseMove);
     };
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (serviceRef.current && !serviceRef.current.contains(e.target as Node)) {
+        setServiceOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   return (
@@ -80,7 +101,7 @@ export default function ContactPage() {
               <span style={{ display: 'block' }}>39 Kingsland Avenue</span>
               <span style={{ display: 'block', opacity: 0.8 }}>Kingsthorpe, Northampton</span>
               <span style={{ display: 'block', opacity: 0.8 }}>NN2 7PP</span>
-              <span style={{ display: 'block', opacity: 0.45, fontSize: '0.8rem' }}>52.2623° N, 0.8921° W</span>
+              <span style={{ display: 'block', opacity: 0.45, fontSize: '0.9rem' }}>52.2623° N, 0.8921° W</span>
             </a>
           </div>
 
@@ -88,7 +109,7 @@ export default function ContactPage() {
             <span className="cx-label">Operational Status</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <div className="cx-status-dot" />
-              <span style={{ fontSize: '0.75rem', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Lines Active — 24/7</span>
+              <span style={{ fontSize: '0.85rem', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Lines Active — 24/7</span>
             </div>
           </div>
         </aside>
@@ -111,22 +132,53 @@ export default function ContactPage() {
               <input type="text" id="cx-company" />
               <label htmlFor="cx-company">Company / Project</label>
             </div>
-            <div className="cx-field">
-              <select id="cx-service" defaultValue="" className="cx-select" required>
-                <option value="" disabled />
-                <option value="logistics">Construction Logistics</option>
-                <option value="workforce">Workforce Supply</option>
-                <option value="security">Security Services</option>
-                <option value="other">General Enquiry</option>
-              </select>
-              <label htmlFor="cx-service" className="cx-select-label">Service Required</label>
+            <div className="cx-field" ref={serviceRef}>
+              <input type="hidden" id="cx-service" name="cx-service" value={service} required />
+              <button
+                type="button"
+                className="cx-select"
+                onClick={() => setServiceOpen((o) => !o)}
+                aria-haspopup="listbox"
+                aria-expanded={serviceOpen}
+              >
+                {serviceOptions.find((o) => o.value === service)?.label ?? ''}
+                <ChevronDown
+                  size={16}
+                  className={`cx-select-chevron ${serviceOpen ? 'cx-select-chevron-open' : ''}`}
+                />
+              </button>
+              {serviceOpen && (
+                <ul className="cx-select-list" role="listbox">
+                  {serviceOptions.map((opt) => (
+                    <li
+                      key={opt.value}
+                      role="option"
+                      aria-selected={service === opt.value}
+                      className={`cx-select-option ${service === opt.value ? 'cx-select-option-active' : ''}`}
+                      onClick={() => {
+                        setService(opt.value);
+                        setServiceOpen(false);
+                      }}
+                    >
+                      {opt.label}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <label
+                htmlFor="cx-service"
+                className="cx-select-label"
+                style={service ? { top: '-16px', fontSize: '0.7rem', opacity: 1 } : undefined}
+              >
+                Service Required
+              </label>
             </div>
             <div className="cx-field cx-field-full">
               <textarea id="cx-message" rows={5} required />
               <label htmlFor="cx-message">Project Details</label>
             </div>
             <button type="submit" className="cx-submit">
-              Initiate Transmission
+              Send Enquiry
             </button>
           </form>
         </section>

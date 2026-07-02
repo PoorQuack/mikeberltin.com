@@ -1,105 +1,154 @@
-﻿import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Globe } from "lucide-react";
+﻿"use client";
+import React from "react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Facebook,
+  Instagram,
+  Twitter,
+  Globe,
+} from "lucide-react";
 import { TextHoverEffect, FooterBackgroundGradient } from "@/components/ui/hover-footer";
 
 export default function Footer() {
+  const footerLinks = [
+    {
+      title: "About Us",
+      links: [
+        { label: "Company History", href: "/about" },
+        { label: "Meet the Team", href: "/about" },
+        { label: "Careers", href: "/careers" },
+        { label: "Our Services", href: "/services" },
+      ],
+    },
+    {
+      title: "Helpful Links",
+      links: [
+        { label: "FAQs", href: "/faq" },
+        { label: "Support", href: "mailto:support@mikeberltin.com" },
+        {
+          label: "Live Chat",
+          href: "/contact",
+        },
+      ],
+    },
+  ];
+
+  const contactInfo = [
+    {
+      icon: <Mail size={18} className="text-[#3ca2fa]" />,
+      text: "info@mikeberltin.com",
+      href: "mailto:info@mikeberltin.com",
+    },
+    {
+      icon: <Phone size={18} className="text-[#3ca2fa]" />,
+      text: "+44 7411 187131",
+      href: "tel:+447411187131",
+    },
+    {
+      icon: <MapPin size={20} className="text-[#3ca2fa]" />,
+      text: "39 Kingsland Avenue, Kingsthorpe, Northampton, NN2 7PP",
+    },
+  ];
+
+  const socialLinks = [
+    { icon: <Facebook size={20} />, label: "Facebook", href: "#" },
+    { icon: <Instagram size={20} />, label: "Instagram", href: "#" },
+    { icon: <Twitter size={20} />, label: "Twitter", href: "#" },
+    { icon: <Globe size={20} />, label: "Website", href: "#" },
+  ];
+
   return (
-    <footer className="relative bg-charcoal border-t border-panel-border overflow-hidden">
-      <div className="relative max-w-7xl mx-auto px-8 pt-20 pb-8 z-10">
-
-        {/* Top grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 lg:gap-10 pb-12">
-
-          {/* Brand */}
-          <div className="flex flex-col space-y-4">
-            <div className="relative inline-block">
-              <img src="/logo.svg" alt="MCL Mikeberltin" className="h-14 w-auto" />
-            </div>
-            <ul className="space-y-2 text-gold text-sm">
-              <li><a href="/services/logistics" className="hover:text-white transition-colors">Construction Logistics</a></li>
-              <li><a href="/services/workforce" className="hover:text-white transition-colors">Workforce Supply</a></li>
-              <li><a href="/services/security" className="hover:text-white transition-colors">Security</a></li>
-            </ul>
-          </div>
-
-          {/* About Us */}
-          <div>
-            <h4 className="text-white text-sm font-semibold uppercase tracking-widest mb-5">About Us</h4>
-            <ul className="space-y-3 text-gold text-sm">
-              <li><a href="/about" className="hover:text-white transition-colors">Company History</a></li>
-              <li><a href="/about" className="hover:text-white transition-colors">Meet the Team</a></li>
-              <li><a href="/careers" className="hover:text-white transition-colors">Careers</a></li>
-              <li><a href="/services" className="hover:text-white transition-colors">Our Services</a></li>
-            </ul>
-          </div>
-
-          {/* Helpful Links */}
-          <div>
-            <h4 className="text-white text-sm font-semibold uppercase tracking-widest mb-5">Helpful Links</h4>
-            <ul className="space-y-3 text-gold text-sm">
-              <li><a href="/faq" className="hover:text-white transition-colors">FAQs</a></li>
-              <li><a href="mailto:support@mikeberltin.com" className="hover:text-white transition-colors">Support</a></li>
-              <li className="relative flex items-center gap-2">
-                <a href="/contact" className="hover:text-white transition-colors">Live Chat</a>
-                <span className="w-2 h-2 rounded-full bg-[#3ca2fa] animate-pulse" />
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact Us */}
-          <div>
-            <h4 className="text-white text-sm font-semibold uppercase tracking-widest mb-5">Contact Us</h4>
-            <ul className="space-y-4 text-gold text-sm">
-              <li className="flex items-center gap-3">
-                <Mail size={16} className="text-[#3ca2fa] shrink-0" />
-                <a
-                  href="mailto:info@mikeberltin.com"
-                  className="hover:text-white transition-colors select-text"
-                >
-                  info@mikeberltin.com
-                </a>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone size={16} className="text-[#3ca2fa] shrink-0" />
-                <a
-                  href="tel:+447411187131"
-                  className="hover:text-white transition-colors select-text"
-                >
-                  +44 7411 187131
-                </a>
-              </li>
-              <li className="flex items-start gap-3">
-                <MapPin size={16} className="text-[#3ca2fa] shrink-0 mt-0.5" />
-                <span className="select-text leading-relaxed">
-                  39 Kingsland Avenue, Kingsthorpe<br />
-                  Northampton, NN2 7PP
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Divider + copyright + social */}
-        <div className="border-t border-panel-border pt-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gold text-xs">
-              &copy; 2026 Mikeberltin. All rights reserved.
-            </p>
-            <div className="flex space-x-5 text-gold">
-              <a href="#" aria-label="Facebook" className="hover:text-white transition-colors"><Facebook size={18} /></a>
-              <a href="#" aria-label="Instagram" className="hover:text-white transition-colors"><Instagram size={18} /></a>
-              <a href="#" aria-label="Twitter" className="hover:text-white transition-colors"><Twitter size={18} /></a>
-              <a href="#" aria-label="Website" className="hover:text-white transition-colors"><Globe size={18} /></a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* MIKEBERLTIN text hover effect — full width, responsive */}
-      <div className="hidden lg:block w-full h-[18rem] relative z-10">
-        <TextHoverEffect text="[MIKEBERLTIN]" className="z-10" />
-      </div>
-
+    <footer className="bg-[#0F0F11]/10 relative h-fit rounded-3xl overflow-hidden m-8">
       <FooterBackgroundGradient />
+      <div className="lg:block hidden absolute inset-0 z-[1]">
+        <TextHoverEffect text="MIKEBERLTIN" />
+      </div>
+      <div className="max-w-7xl mx-auto p-14 z-40 relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 lg:gap-16 pb-12">
+          {/* Brand section */}
+          <div className="flex flex-col space-y-4">
+            <div className="flex items-center space-x-2">
+              <img src="/logo.svg" alt="MCL Mikeberltin" className="h-14 md:h-16 w-auto" />
+            </div>
+            <p className="text-sm leading-relaxed text-gold">
+              Construction logistics, workforce supply, and security services for the UK construction industry.
+            </p>
+          </div>
+
+          {/* Footer link sections */}
+          {footerLinks.map((section) => (
+            <div key={section.title}>
+              <h4 className="text-white text-lg font-semibold mb-6">
+                {section.title}
+              </h4>
+              <ul className="space-y-3">
+                {section.links.map((link) => (
+                  <li key={link.label} className="relative">
+                    <a
+                      href={link.href}
+                      className="hover:text-[#3ca2fa] transition-colors text-gold text-sm"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          {/* Contact section */}
+          <div>
+            <h4 className="text-white text-lg font-semibold mb-6">
+              Contact Us
+            </h4>
+            <ul className="space-y-4">
+              {contactInfo.map((item, i) => (
+                <li key={i} className="flex items-start space-x-3">
+                  <span className="flex-shrink-0 mt-0.5">{item.icon}</span>
+                  {item.href ? (
+                    <a
+                      href={item.href}
+                      className="hover:text-[#3ca2fa] transition-colors text-gold text-sm"
+                    >
+                      {item.text}
+                    </a>
+                  ) : (
+                    <span className="hover:text-[#3ca2fa] transition-colors text-gold text-sm">
+                      {item.text}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <hr className="border-t border-gray-700 my-8" />
+
+        {/* Footer bottom */}
+        <div className="flex flex-col md:flex-row justify-between items-center text-sm space-y-4 md:space-y-0">
+          {/* Social icons */}
+          <div className="flex space-x-6 text-gray-400">
+            {socialLinks.map(({ icon, label, href }) => (
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                className="hover:text-[#3ca2fa] transition-colors"
+              >
+                {icon}
+              </a>
+            ))}
+          </div>
+
+          {/* Copyright */}
+          <p className="text-center md:text-left text-gold">
+            &copy; {new Date().getFullYear()} Mikeberltin. All rights reserved.
+          </p>
+        </div>
+      </div>
     </footer>
   );
 }
